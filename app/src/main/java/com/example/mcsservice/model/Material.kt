@@ -8,4 +8,6 @@ data class Material(
     @Json(name = "updated_at") val updatedAt: String,
     @Json(name = "name") val name: String,
     @Json(name = "content") val content: String,
+    @Json(name = "is_visible") val isVisible: Boolean,
+    @Json(name = "section_id") val sectionId: Int,
 )
