@@ -12,8 +12,3 @@ data class Section(
     @Json(name = "section_type_id") val sectionTypeId: Int,
     @Json(name = "section_type") val sectionType: SectionType,
 )
-
-data class SectionType(
-    @Json(name = "id") val id: Int,
-    @Json(name = "name") val name: String,
-)

@@ -13,8 +13,3 @@ data class Task(
     @Json(name = "task_type_id") val taskTypeId: Int,
     @Json(name = "task_type") val taskType: TaskType,
 )
-
-data class TaskType(
-    @Json(name = "id") val id: Int,
-    @Json(name = "name") val name: String,
-)
