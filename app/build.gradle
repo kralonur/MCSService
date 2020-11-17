@@ -54,4 +54,9 @@ dependencies {
     def timber_version = "4.7.1"
     //Timber
     implementation "com.jakewharton.timber:timber:$timber_version"
+
+    def moshi_version = '1.11.0'
+    //Moshi
+    implementation "com.squareup.moshi:moshi:$moshi_version"
+    implementation "com.squareup.moshi:moshi-kotlin:$moshi_version"
 }
