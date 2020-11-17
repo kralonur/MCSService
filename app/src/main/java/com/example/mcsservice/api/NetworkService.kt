@@ -1,5 +1,6 @@
 package com.example.mcsservice.api
 
+import com.example.mcsservice.api.service.SubjectService
 import com.example.mcsservice.util.Constants
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
@@ -39,3 +40,7 @@ private fun getRetrofit(): Retrofit {
 
 private inline fun <reified T> createService(): T =
     getRetrofit().create(T::class.java)
+
+object NetworkService {
+    val subjectService = createService<SubjectService>()
+}
