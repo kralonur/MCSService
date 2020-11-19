@@ -6,6 +6,10 @@ object Constants {
 
         const val ALL_SUBJECTS = "all_subjects"
 
+        const val ALL_SECTIONS = "all_sections"
+
+        const val ALL_MATERIALS = "all_materials"
+
         const val SECTIONS_BY_SUBJECT = "sections_by_subject"
 
         const val TASKS_BY_SECTION = "tasks_by_section"
