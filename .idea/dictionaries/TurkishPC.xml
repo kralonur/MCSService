@@ -3,6 +3,8 @@
     <words>
       <w>mcsservice</w>
       <w>moshi</w>
+      <w>okhttp</w>
+      <w>roomdb</w>
     </words>
   </dictionary>
 </component>
