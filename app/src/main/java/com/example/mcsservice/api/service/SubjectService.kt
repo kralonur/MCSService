@@ -14,10 +14,10 @@ interface SubjectService {
     @GET(Constants.Api.ALL_SUBJECTS)
     suspend fun getAllSubjects(): List<Subject>
 
-    @GET(Constants.Api.ALL_SUBJECTS)
+    @GET(Constants.Api.ALL_SECTIONS)
     suspend fun getAllSections(): List<Section>
 
-    @GET(Constants.Api.ALL_SUBJECTS)
+    @GET(Constants.Api.ALL_MATERIALS)
     suspend fun getAllMaterials(): List<Material>
 
     @GET("${Constants.Api.SECTIONS_BY_SUBJECT}/{subjectId}")
