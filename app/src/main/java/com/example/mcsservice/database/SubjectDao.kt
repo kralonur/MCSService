@@ -1,11 +1,13 @@
 package com.example.mcsservice.database
 
+import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
 import com.example.mcsservice.model.database.DbSubject
 import kotlinx.coroutines.flow.Flow
 
+@Dao
 interface SubjectDao {
     @Query("SELECT * FROM subject")
     fun getAll(): Flow<List<DbSubject>>
