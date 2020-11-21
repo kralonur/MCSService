@@ -6,13 +6,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.mcsservice.R
 import com.example.mcsservice.databinding.LayoutRecviewWithTitleBinding
 import com.example.mcsservice.model.database.DbSection
 import com.example.mcsservice.ui.section.recview.SectionAdapter
 import com.example.mcsservice.ui.section.recview.SectionClickListener
-import timber.log.Timber
 
 class SectionFragment : Fragment(), SectionClickListener {
     private val viewModel by viewModels<SectionViewModel>()
@@ -48,6 +48,8 @@ class SectionFragment : Fragment(), SectionClickListener {
     }
 
     override fun onClick(section: DbSection) {
-        Timber.i(section.toString())
+        findNavController().navigate(
+            SectionFragmentDirections.actionSectionFragmentToSectionDetailFragment(section.id)
+        )
     }
 }
