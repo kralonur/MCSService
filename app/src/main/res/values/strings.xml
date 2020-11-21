@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">MCS Service</string>
+    <string name="all_subjects">Все предметы</string>
 </resources>
