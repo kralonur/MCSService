@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.mcsservice.R
 import com.example.mcsservice.databinding.LayoutRecviewWithTitleBinding
@@ -48,7 +49,9 @@ class SectionDetailFragment : Fragment(), MaterialClickListener, TaskClickListen
     }
 
     override fun onClick(material: DbMaterial) {
-        Timber.i(material.toString())
+        findNavController().navigate(
+            SectionDetailFragmentDirections.actionSectionDetailFragmentToWebViewFragment(material.content)
+        )
     }
 
     override fun onClick(task: DbTask) {
