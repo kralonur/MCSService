@@ -18,5 +18,16 @@
         <argument
             android:name="subjectId"
             app:argType="integer" />
+        <action
+            android:id="@+id/action_sectionFragment_to_sectionDetailFragment"
+            app:destination="@id/sectionDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/sectionDetailFragment"
+        android:name="com.example.mcsservice.ui.section_detail.SectionDetailFragment"
+        android:label="SectionDetailFragment" >
+        <argument
+            android:name="sectionId"
+            app:argType="integer" />
     </fragment>
 </navigation>

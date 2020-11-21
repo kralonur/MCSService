@@ -8,11 +8,9 @@ import com.example.mcsservice.model.SectionDetailItemType
 import com.example.mcsservice.model.mapper.MaterialRemoteToDbMapper
 import com.example.mcsservice.model.mapper.SectionRemoteToDbMapper
 import com.example.mcsservice.model.mapper.SubjectRemoteToDbMapper
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.merge
 
 class SubjectRepository(context: Context) : BaseRepository() {
     private val api = NetworkService.subjectService
@@ -76,6 +74,8 @@ class SubjectRepository(context: Context) : BaseRepository() {
     }
 
     fun getSubjectById(subjectId: Int) = db.subjectDao().getById(subjectId)
+
+    fun getSectionById(sectionId: Int) = db.sectionDao().getById(sectionId)
 
     fun getSectionDetailList(sectionId: Int) = combine(
         getMaterialHeader(),

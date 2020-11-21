@@ -6,7 +6,6 @@ import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.mcsservice.repository.SubjectRepository
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.catch
 import timber.log.Timber
 
@@ -16,4 +15,7 @@ class SectionDetailViewModel(application: Application) : AndroidViewModel(applic
     fun getSectionDetailList(sectionId: Int) =
         repo.getSectionDetailList(sectionId).catch { Timber.e(it) }
             .asLiveData(Dispatchers.IO + viewModelScope.coroutineContext)
+
+    fun getSection(sectionId: Int) = repo.getSectionById(sectionId).catch { Timber.e(it) }
+        .asLiveData(Dispatchers.IO + viewModelScope.coroutineContext)
 }
