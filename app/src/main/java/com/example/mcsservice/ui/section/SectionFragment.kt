@@ -33,10 +33,12 @@ class SectionFragment : Fragment(), SectionClickListener {
 
         val subjectId = args.subjectId
 
-        binding.textView2.text = getString(R.string.all_subjects)
-
         val adapter = SectionAdapter(this)
         binding.recView.adapter = adapter
+
+        viewModel.getSubject(subjectId).observe(viewLifecycleOwner) {
+            binding.textView2.text = getString(R.string.section_of_subject, it.name)
+        }
 
         viewModel.getSectionList(subjectId).observe(viewLifecycleOwner) {
             it?.let {

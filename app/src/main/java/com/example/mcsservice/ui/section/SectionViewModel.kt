@@ -15,4 +15,7 @@ class SectionViewModel(application: Application) : AndroidViewModel(application)
     fun getSectionList(subjectId: Int) =
         repo.getSectionListBySubjectId(subjectId).catch { Timber.e(it) }
             .asLiveData(Dispatchers.IO + viewModelScope.coroutineContext)
+
+    fun getSubject(subjectId: Int) = repo.getSubjectById(subjectId).catch { Timber.e(it) }
+        .asLiveData(Dispatchers.IO + viewModelScope.coroutineContext)
 }
