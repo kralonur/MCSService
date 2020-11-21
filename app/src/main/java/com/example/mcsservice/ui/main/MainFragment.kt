@@ -6,12 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.example.mcsservice.R
 import com.example.mcsservice.databinding.LayoutRecviewWithTitleBinding
 import com.example.mcsservice.model.database.DbSubject
 import com.example.mcsservice.ui.main.recview.SubjectAdapter
 import com.example.mcsservice.ui.main.recview.SubjectClickListener
-import timber.log.Timber
 
 class MainFragment : Fragment(), SubjectClickListener {
     private val viewModel by viewModels<MainViewModel>()
@@ -42,6 +42,8 @@ class MainFragment : Fragment(), SubjectClickListener {
     }
 
     override fun onClick(subject: DbSubject) {
-        Timber.i(subject.toString())
+        findNavController().navigate(
+            MainFragmentDirections.actionMainFragmentToSectionFragment(subject.id)
+        )
     }
 }

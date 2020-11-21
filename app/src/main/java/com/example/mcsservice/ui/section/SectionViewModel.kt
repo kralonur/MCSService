@@ -12,6 +12,7 @@ import timber.log.Timber
 class SectionViewModel(application: Application) : AndroidViewModel(application) {
     private val repo = SubjectRepository(getApplication<Application>().applicationContext)
 
-    fun getSectionList() = repo.getSectionListBySubjectId(1).catch { Timber.e(it) }
-        .asLiveData(Dispatchers.IO + viewModelScope.coroutineContext)
+    fun getSectionList(subjectId: Int) =
+        repo.getSectionListBySubjectId(subjectId).catch { Timber.e(it) }
+            .asLiveData(Dispatchers.IO + viewModelScope.coroutineContext)
 }
