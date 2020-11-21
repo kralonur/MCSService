@@ -29,5 +29,16 @@
         <argument
             android:name="sectionId"
             app:argType="integer" />
+        <action
+            android:id="@+id/action_sectionDetailFragment_to_webViewFragment"
+            app:destination="@id/webViewFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/webViewFragment"
+        android:name="com.example.mcsservice.ui.webview.WebViewFragment"
+        android:label="WebViewFragment" >
+        <argument
+            android:name="content"
+            app:argType="string" />
     </fragment>
 </navigation>
