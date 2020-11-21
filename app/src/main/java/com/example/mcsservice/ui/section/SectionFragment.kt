@@ -1,4 +1,4 @@
-package com.example.mcsservice.ui.main
+package com.example.mcsservice.ui.section
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,16 +6,18 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.example.mcsservice.R
 import com.example.mcsservice.databinding.LayoutRecviewWithTitleBinding
-import com.example.mcsservice.model.database.DbSubject
-import com.example.mcsservice.ui.main.recview.SubjectAdapter
-import com.example.mcsservice.ui.main.recview.SubjectClickListener
+import com.example.mcsservice.model.database.DbSection
+import com.example.mcsservice.ui.section.recview.SectionAdapter
+import com.example.mcsservice.ui.section.recview.SectionClickListener
+import timber.log.Timber
 
-class MainFragment : Fragment(), SubjectClickListener {
-    private val viewModel by viewModels<MainViewModel>()
+class SectionFragment : Fragment(), SectionClickListener {
+    private val viewModel by viewModels<SectionViewModel>()
     private lateinit var binding: LayoutRecviewWithTitleBinding
+    private val args by navArgs<SectionFragmentArgs>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -29,21 +31,23 @@ class MainFragment : Fragment(), SubjectClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.textView2.text = getString(R.string.all_subjects)
+        val subjectId = args.subjectId
 
-        val adapter = SubjectAdapter(this)
+        val adapter = SectionAdapter(this)
         binding.recView.adapter = adapter
 
-        viewModel.getSubjectList().observe(viewLifecycleOwner) {
+        viewModel.getSubject(subjectId).observe(viewLifecycleOwner) {
+            binding.textView2.text = getString(R.string.section_of_subject, it.name)
+        }
+
+        viewModel.getSectionList(subjectId).observe(viewLifecycleOwner) {
             it?.let {
                 adapter.submitList(it)
             }
         }
     }
 
-    override fun onClick(subject: DbSubject) {
-        findNavController().navigate(
-            MainFragmentDirections.actionMainFragmentToSectionFragment(subject.id)
-        )
+    override fun onClick(section: DbSection) {
+        Timber.i(section.toString())
     }
 }

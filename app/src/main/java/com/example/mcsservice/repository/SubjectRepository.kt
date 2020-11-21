@@ -29,4 +29,6 @@ class SubjectRepository(context: Context) : BaseRepository() {
 
     fun getTaskListBySectionId(sectionId: Int) = db.taskDao().getAllBySectionId(sectionId)
 
+    fun getSubjectById(subjectId: Int) = db.subjectDao().getById(subjectId)
+
 }

@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">MCS Service</string>
     <string name="all_subjects">Все предметы</string>
+    <string name="section_of_subject">Разделы предмета\n“%s”</string>
 </resources>
