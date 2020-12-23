@@ -8,6 +8,7 @@ import com.example.mcsservice.model.SectionDetailItemType
 import com.example.mcsservice.model.mapper.MaterialRemoteToDbMapper
 import com.example.mcsservice.model.mapper.SectionRemoteToDbMapper
 import com.example.mcsservice.model.mapper.SubjectRemoteToDbMapper
+import com.example.mcsservice.model.mapper.TaskRemoteToDbMapper
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
@@ -20,10 +21,12 @@ class SubjectRepository(context: Context) : BaseRepository() {
         val subjects = api.getAllSubjects().map { SubjectRemoteToDbMapper.map(it) }
         val sections = api.getAllSections().map { SectionRemoteToDbMapper.map(it) }
         val materials = api.getAllMaterials().map { MaterialRemoteToDbMapper.map(it) }
+        val tasks = api.getAllTasks().map { TaskRemoteToDbMapper.map(it) }
 
         db.subjectDao().insertAll(subjects)
         db.sectionDao().insertAll(sections)
         db.materialDao().insertAll(materials)
+        db.taskDao().insertAll(tasks)
     }
 
     fun getSubjectList() = db.subjectDao().getAll()
