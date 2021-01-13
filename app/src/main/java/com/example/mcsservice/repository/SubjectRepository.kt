@@ -5,6 +5,8 @@ import com.example.mcsservice.api.NetworkService
 import com.example.mcsservice.database.AppDatabase
 import com.example.mcsservice.model.SectionDetailItem
 import com.example.mcsservice.model.SectionDetailItemType
+import com.example.mcsservice.model.database.DbSection
+import com.example.mcsservice.model.database.DbTask
 import com.example.mcsservice.model.mapper.MaterialRemoteToDbMapper
 import com.example.mcsservice.model.mapper.SectionRemoteToDbMapper
 import com.example.mcsservice.model.mapper.SubjectRemoteToDbMapper
@@ -32,6 +34,13 @@ class SubjectRepository(context: Context) : BaseRepository() {
     fun getSubjectList() = db.subjectDao().getAll()
 
     fun getSectionListBySubjectId(subjectId: Int) = db.sectionDao().getAllBySubjectId(subjectId)
+
+    fun getEncryptedTasks(sectionId: Int) =
+        db.taskDao().getAllDecryptedBySectionId(sectionId, false)
+
+    suspend fun updateTask(task: DbTask) = db.taskDao().update(task)
+
+    suspend fun updateSection(section: DbSection) = db.sectionDao().update(section)
 
     private fun getMaterialListBySectionId(sectionId: Int) =
         db.materialDao().getAllBySectionId(sectionId)
@@ -65,6 +74,17 @@ class SubjectRepository(context: Context) : BaseRepository() {
             }
         }
 
+    private fun getDecryptedTaskListBySectionId(sectionId: Int) =
+        db.taskDao().getAllDecryptedBySectionId(sectionId)
+            .map {
+                return@map it.map { item ->
+                    SectionDetailItem(
+                        SectionDetailItemType.TASK,
+                        task = item
+                    )
+                }
+            }
+
     private fun getTaskHeader() = flow {
         emit(
             listOf(
@@ -84,7 +104,7 @@ class SubjectRepository(context: Context) : BaseRepository() {
         getMaterialHeader(),
         getMaterialListBySectionId(sectionId),
         getTaskHeader(),
-        getTaskListBySectionId(sectionId)
+        getDecryptedTaskListBySectionId(sectionId)
     ) { f1, f2, f3, f4 ->
         val list = ArrayList<SectionDetailItem>()
         if (f2.isNotEmpty()) {
@@ -96,7 +116,7 @@ class SubjectRepository(context: Context) : BaseRepository() {
             list.addAll(f4)
         }
 
-        return@combine list as List<SectionDetailItem>
+        return@combine list
     }
 
 }
