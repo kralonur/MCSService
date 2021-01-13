@@ -12,4 +12,5 @@ data class DbSection(
     @ColumnInfo(name = "description") val description: String,
     @ColumnInfo(name = "subject_id") val subjectId: Int,
     @ColumnInfo(name = "section_type_id") val sectionTypeId: Int,
+    @ColumnInfo(name = "section_pass") val sectionPass: String,
 )

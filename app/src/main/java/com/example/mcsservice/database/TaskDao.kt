@@ -1,9 +1,6 @@
 package com.example.mcsservice.database
 
-import androidx.room.Dao
-import androidx.room.Delete
-import androidx.room.Insert
-import androidx.room.Query
+import androidx.room.*
 import com.example.mcsservice.model.database.DbTask
 import kotlinx.coroutines.flow.Flow
 
@@ -14,6 +11,9 @@ interface TaskDao {
 
     @Query("SELECT * FROM task WHERE section_id = (:sectionId)")
     fun getAllBySectionId(sectionId: Int): Flow<List<DbTask>>
+
+    @Query("SELECT * FROM task WHERE section_id = (:sectionId) and is_description_decrypted = (:decrypted)")
+    fun getAllDecryptedBySectionId(sectionId: Int, decrypted: Boolean = true): Flow<List<DbTask>>
 
     @Query("SELECT * FROM task WHERE id = (:taskId)")
     fun getById(taskId: Int): Flow<DbTask>
@@ -26,4 +26,7 @@ interface TaskDao {
 
     @Delete
     suspend fun delete(task: DbTask)
+
+    @Update
+    suspend fun update(task: DbTask)
 }
