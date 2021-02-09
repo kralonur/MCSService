@@ -13,4 +13,5 @@ data class DbTask(
     @ColumnInfo(name = "difficulty") val difficulty: Int,
     @ColumnInfo(name = "section_id") val sectionId: Int,
     @ColumnInfo(name = "task_type_id") val taskTypeId: Int,
+    @ColumnInfo(name = "is_description_decrypted") val isDescriptionDecrypted: Boolean,
 )

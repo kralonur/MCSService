@@ -12,7 +12,8 @@ object TaskRemoteToDbMapper : Mapper<Task, DbTask> {
             input.description,
             input.difficulty,
             input.sectionId,
-            input.taskTypeId
+            input.taskTypeId,
+            false
         )
     }
 }

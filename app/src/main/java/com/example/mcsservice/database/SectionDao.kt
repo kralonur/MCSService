@@ -1,9 +1,6 @@
 package com.example.mcsservice.database
 
-import androidx.room.Dao
-import androidx.room.Delete
-import androidx.room.Insert
-import androidx.room.Query
+import androidx.room.*
 import com.example.mcsservice.model.database.DbSection
 import kotlinx.coroutines.flow.Flow
 
@@ -26,4 +23,7 @@ interface SectionDao {
 
     @Delete
     suspend fun delete(section: DbSection)
+
+    @Update
+    suspend fun update(section: DbSection)
 }

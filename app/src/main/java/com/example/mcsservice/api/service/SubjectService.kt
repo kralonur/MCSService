@@ -20,6 +20,9 @@ interface SubjectService {
     @GET(Constants.Api.ALL_MATERIALS)
     suspend fun getAllMaterials(): List<Material>
 
+    @GET(Constants.Api.ALL_TASKS)
+    suspend fun getAllTasks(): List<Task>
+
     @GET("${Constants.Api.SECTIONS_BY_SUBJECT}/{subjectId}")
     suspend fun getSectionBySubject(
         @Path("subjectId") subjectId: Int

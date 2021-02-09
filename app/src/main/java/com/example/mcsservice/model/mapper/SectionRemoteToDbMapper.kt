@@ -11,7 +11,8 @@ object SectionRemoteToDbMapper : Mapper<Section, DbSection> {
             input.name,
             input.description,
             input.subjectId,
-            input.sectionTypeId
+            input.sectionTypeId,
+            ""
         )
     }
 }
