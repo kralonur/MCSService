@@ -3,4 +3,13 @@
     <string name="all_subjects">Все предметы</string>
     <string name="section_of_subject">Разделы предмета\n“%s”</string>
     <string name="section">Раздел “%s”</string>
+    <string name="check_your_internet_connection">Проверьте ваше интернет-соединение!</string>
+
+    <string name="initialising_database">Инициализация базы данных…</string>
+    <string name="initialising_database_success">Инициализация базы данных: успешно</string>
+    <string name="initialising_database_error">Инициализация базы данных: ошибка!</string>
+
+    <string name="updating_database">Обновление базы данных…</string>
+    <string name="updating_database_success">Обновление базы данных: успешно</string>
+    <string name="updating_database_error">Обновление базы данных: ошибка!</string>
 </resources>
