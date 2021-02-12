@@ -12,6 +12,9 @@ interface TaskDao {
     @Query("SELECT * FROM task WHERE section_id = (:sectionId)")
     fun getAllBySectionId(sectionId: Int): Flow<List<DbTask>>
 
+    @Query("SELECT * FROM task WHERE section_id = (:sectionId)")
+    suspend fun getAllBySectionIdSuspend(sectionId: Int): List<DbTask>
+
     @Query("SELECT * FROM task WHERE section_id = (:sectionId) and is_description_decrypted = (:decrypted)")
     fun getAllDecryptedBySectionId(sectionId: Int, decrypted: Boolean = true): Flow<List<DbTask>>
 
@@ -29,4 +32,7 @@ interface TaskDao {
 
     @Update
     suspend fun update(task: DbTask)
+
+    @Update
+    suspend fun updateAll(tasks: List<DbTask>)
 }

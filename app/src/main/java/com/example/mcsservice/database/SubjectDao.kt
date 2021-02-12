@@ -1,9 +1,6 @@
 package com.example.mcsservice.database
 
-import androidx.room.Dao
-import androidx.room.Delete
-import androidx.room.Insert
-import androidx.room.Query
+import androidx.room.*
 import com.example.mcsservice.model.database.DbSubject
 import kotlinx.coroutines.flow.Flow
 
@@ -11,6 +8,9 @@ import kotlinx.coroutines.flow.Flow
 interface SubjectDao {
     @Query("SELECT * FROM subject")
     fun getAll(): Flow<List<DbSubject>>
+
+    @Query("SELECT * FROM subject")
+    suspend fun getAllSuspend(): List<DbSubject>
 
     @Query("SELECT * FROM subject WHERE id = (:subjectId)")
     fun getById(subjectId: Int): Flow<DbSubject>
@@ -23,4 +23,10 @@ interface SubjectDao {
 
     @Delete
     suspend fun delete(subject: DbSubject)
+
+    @Update
+    suspend fun update(subject: DbSubject)
+
+    @Update
+    suspend fun updateAll(subjects: List<DbSubject>)
 }

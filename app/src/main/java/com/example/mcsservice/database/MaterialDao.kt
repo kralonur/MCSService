@@ -1,9 +1,6 @@
 package com.example.mcsservice.database
 
-import androidx.room.Dao
-import androidx.room.Delete
-import androidx.room.Insert
-import androidx.room.Query
+import androidx.room.*
 import com.example.mcsservice.model.database.DbMaterial
 import kotlinx.coroutines.flow.Flow
 
@@ -14,6 +11,9 @@ interface MaterialDao {
 
     @Query("SELECT * FROM material WHERE section_id = (:sectionId)")
     fun getAllBySectionId(sectionId: Int): Flow<List<DbMaterial>>
+
+    @Query("SELECT * FROM material WHERE section_id = (:sectionId)")
+    suspend fun getAllBySectionIdSuspend(sectionId: Int): List<DbMaterial>
 
     @Query("SELECT * FROM material WHERE id = (:materialId)")
     fun getById(materialId: Int): Flow<DbMaterial>
@@ -26,4 +26,10 @@ interface MaterialDao {
 
     @Delete
     suspend fun delete(material: DbMaterial)
+
+    @Update
+    suspend fun update(material: DbMaterial)
+
+    @Update
+    suspend fun updateAll(materials: List<DbMaterial>)
 }
