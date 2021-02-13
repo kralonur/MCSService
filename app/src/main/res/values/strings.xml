@@ -12,4 +12,6 @@
     <string name="updating_database">Обновление базы данных…</string>
     <string name="updating_database_success">Обновление базы данных: успешно</string>
     <string name="updating_database_error">Обновление базы данных: ошибка!</string>
+
+    <string name="unlock">Unlock</string>
 </resources>
