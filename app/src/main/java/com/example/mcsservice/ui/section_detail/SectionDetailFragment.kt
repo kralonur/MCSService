@@ -9,25 +9,31 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.mcsservice.R
-import com.example.mcsservice.databinding.LayoutRecviewWithTitleBinding
+import com.example.mcsservice.databinding.DialogSectionPassBinding
+import com.example.mcsservice.databinding.FragmentSectionDetailBinding
 import com.example.mcsservice.model.database.DbMaterial
+import com.example.mcsservice.model.database.DbSection
 import com.example.mcsservice.model.database.DbTask
 import com.example.mcsservice.ui.section_detail.recview.MaterialClickListener
 import com.example.mcsservice.ui.section_detail.recview.SectionDetailAdapter
 import com.example.mcsservice.ui.section_detail.recview.TaskClickListener
+import com.example.mcsservice.ui.section_detail.validator.HtmlValidator
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import timber.log.Timber
 
 class SectionDetailFragment : Fragment(), MaterialClickListener, TaskClickListener {
     private val viewModel by viewModels<SectionDetailViewModel>()
-    private lateinit var binding: LayoutRecviewWithTitleBinding
+    private lateinit var binding: FragmentSectionDetailBinding
     private val args by navArgs<SectionDetailFragmentArgs>()
+    private lateinit var section: DbSection
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = LayoutRecviewWithTitleBinding.inflate(inflater, container, false)
+        binding = FragmentSectionDetailBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -37,10 +43,24 @@ class SectionDetailFragment : Fragment(), MaterialClickListener, TaskClickListen
         val sectionId = args.sectionId
 
         val adapter = SectionDetailAdapter(this, this)
-        binding.recView.adapter = adapter
+        binding.layoutRecview.recView.adapter = adapter
 
+        binding.topAppBar.setNavigationOnClickListener {
+            findNavController().navigateUp()
+        }
+
+        binding.topAppBar.setOnMenuItemClickListener {
+            if (it.itemId == R.id.unlock) {
+                showSectionPasswordDialog()
+                true
+            } else false
+        }
+
+        //TODO hide menu when task list is empty or password already given
         viewModel.getSection(sectionId).observe(viewLifecycleOwner) {
-            binding.textView2.text = getString(R.string.section, it.name)
+            section = it
+            binding.layoutRecview.textView2.text = getString(R.string.section, it.name)
+            if (it.sectionPass.isNotEmpty()) viewModel.decryptSection(it, HtmlValidator())
         }
 
         viewModel.getSectionDetailList(sectionId).observe(viewLifecycleOwner) {
@@ -54,7 +74,23 @@ class SectionDetailFragment : Fragment(), MaterialClickListener, TaskClickListen
         )
     }
 
+    private fun showSectionPasswordDialog() {
+        val dialogBinding = DialogSectionPassBinding.inflate(layoutInflater)
+
+        MaterialAlertDialogBuilder(requireContext())
+            .setView(dialogBinding.root)
+            .setPositiveButton("OK") { _, _ ->
+                val pass = dialogBinding.passInput.text.toString()
+                Timber.i("Entered pass: $pass")
+                viewModel.updateSectionPass(section, pass)
+            }
+            .setNegativeButton("Cancel", null)
+            .show()
+    }
+
     override fun onClick(task: DbTask) {
-        Timber.i(task.toString())
+        findNavController().navigate(
+            SectionDetailFragmentDirections.actionSectionDetailFragmentToWebViewFragment(task.description)
+        )
     }
 }

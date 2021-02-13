@@ -9,14 +9,14 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.mcsservice.R
-import com.example.mcsservice.databinding.LayoutRecviewWithTitleBinding
+import com.example.mcsservice.databinding.FragmentSectionBinding
 import com.example.mcsservice.model.database.DbSection
 import com.example.mcsservice.ui.section.recview.SectionAdapter
 import com.example.mcsservice.ui.section.recview.SectionClickListener
 
 class SectionFragment : Fragment(), SectionClickListener {
     private val viewModel by viewModels<SectionViewModel>()
-    private lateinit var binding: LayoutRecviewWithTitleBinding
+    private lateinit var binding: FragmentSectionBinding
     private val args by navArgs<SectionFragmentArgs>()
 
     override fun onCreateView(
@@ -24,7 +24,7 @@ class SectionFragment : Fragment(), SectionClickListener {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = LayoutRecviewWithTitleBinding.inflate(inflater, container, false)
+        binding = FragmentSectionBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -34,10 +34,14 @@ class SectionFragment : Fragment(), SectionClickListener {
         val subjectId = args.subjectId
 
         val adapter = SectionAdapter(this)
-        binding.recView.adapter = adapter
+        binding.layoutRecview.recView.adapter = adapter
+
+        binding.topAppBar.setNavigationOnClickListener {
+            findNavController().navigateUp()
+        }
 
         viewModel.getSubject(subjectId).observe(viewLifecycleOwner) {
-            binding.textView2.text = getString(R.string.section_of_subject, it.name)
+            binding.layoutRecview.textView2.text = getString(R.string.section_of_subject, it.name)
         }
 
         viewModel.getSectionList(subjectId).observe(viewLifecycleOwner) {
