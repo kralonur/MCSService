@@ -10,19 +10,16 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         app:layout_constraintTop_toTopOf="parent"
+        app:menu="@menu/unlock_menu"
+        app:navigationIcon="@drawable/back"
         app:title="@string/app_name" />
 
-    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-        android:id="@+id/swipe_refresh"
+
+    <include
+        android:id="@+id/layout_recview"
+        layout="@layout/layout_recview_with_title"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/topAppBar">
-
-        <include
-            android:id="@+id/layout_recview"
-            layout="@layout/layout_recview_with_title"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+        app:layout_constraintTop_toBottomOf="@+id/topAppBar" />
 </androidx.constraintlayout.widget.ConstraintLayout>

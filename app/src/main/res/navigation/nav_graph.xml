@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/nav_graph"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph"
     app:startDestination="@id/mainFragment">
     <fragment
         android:id="@+id/mainFragment"
@@ -14,7 +15,7 @@
     <fragment
         android:id="@+id/sectionFragment"
         android:name="com.example.mcsservice.ui.section.SectionFragment"
-        android:label="SectionFragment" >
+        android:label="SectionFragment">
         <argument
             android:name="subjectId"
             app:argType="integer" />
@@ -25,7 +26,7 @@
     <fragment
         android:id="@+id/sectionDetailFragment"
         android:name="com.example.mcsservice.ui.section_detail.SectionDetailFragment"
-        android:label="SectionDetailFragment" >
+        android:label="SectionDetailFragment">
         <argument
             android:name="sectionId"
             app:argType="integer" />
@@ -36,7 +37,7 @@
     <fragment
         android:id="@+id/webViewFragment"
         android:name="com.example.mcsservice.ui.webview.WebViewFragment"
-        android:label="WebViewFragment" >
+        android:label="WebViewFragment">
         <argument
             android:name="content"
             app:argType="string" />
