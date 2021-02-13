@@ -12,6 +12,9 @@ interface SectionDao {
     @Query("SELECT * FROM section WHERE subject_id = (:subjectId)")
     fun getAllBySubjectId(subjectId: Int): Flow<List<DbSection>>
 
+    @Query("SELECT * FROM section WHERE subject_id = (:subjectId)")
+    suspend fun getAllBySubjectIdSuspend(subjectId: Int): List<DbSection>
+
     @Query("SELECT * FROM section WHERE id = (:sectionId)")
     fun getById(sectionId: Int): Flow<DbSection>
 
@@ -26,4 +29,7 @@ interface SectionDao {
 
     @Update
     suspend fun update(section: DbSection)
+
+    @Update
+    suspend fun updateAll(sections: List<DbSection>)
 }
