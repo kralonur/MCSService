@@ -14,4 +14,5 @@
     <string name="updating_database_error">Обновление базы данных: ошибка!</string>
 
     <string name="unlock">Unlock</string>
+    <string name="wrong_code_for">Неверный код для\n“%s”</string>
 </resources>

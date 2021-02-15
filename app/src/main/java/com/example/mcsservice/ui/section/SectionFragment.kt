@@ -10,7 +10,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.mcsservice.R
 import com.example.mcsservice.databinding.FragmentSectionBinding
-import com.example.mcsservice.model.database.DbSection
+import com.example.mcsservice.model.DomainSection
 import com.example.mcsservice.ui.section.recview.SectionAdapter
 import com.example.mcsservice.ui.section.recview.SectionClickListener
 
@@ -51,7 +51,7 @@ class SectionFragment : Fragment(), SectionClickListener {
         }
     }
 
-    override fun onClick(section: DbSection) {
+    override fun onClick(section: DomainSection) {
         findNavController().navigate(
             SectionFragmentDirections.actionSectionFragmentToSectionDetailFragment(section.id)
         )

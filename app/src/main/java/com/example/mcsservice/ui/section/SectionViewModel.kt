@@ -13,7 +13,7 @@ class SectionViewModel(application: Application) : AndroidViewModel(application)
     private val repo = SubjectRepository(getApplication<Application>().applicationContext)
 
     fun getSectionList(subjectId: Int) =
-        repo.getSectionListBySubjectId(subjectId).catch { Timber.e(it) }
+        repo.getSectionDomainListBySubjectId(subjectId).catch { Timber.e(it) }
             .asLiveData(Dispatchers.IO + viewModelScope.coroutineContext)
 
     fun getSubject(subjectId: Int) = repo.getSubjectById(subjectId).catch { Timber.e(it) }

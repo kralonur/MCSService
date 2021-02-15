@@ -7,10 +7,7 @@ import com.example.mcsservice.model.SectionDetailItem
 import com.example.mcsservice.model.SectionDetailItemType
 import com.example.mcsservice.model.database.DbSection
 import com.example.mcsservice.model.database.DbTask
-import com.example.mcsservice.model.mapper.MaterialRemoteToDbMapper
-import com.example.mcsservice.model.mapper.SectionRemoteToDbMapper
-import com.example.mcsservice.model.mapper.SubjectRemoteToDbMapper
-import com.example.mcsservice.model.mapper.TaskRemoteToDbMapper
+import com.example.mcsservice.model.mapper.*
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
@@ -144,7 +141,20 @@ class SubjectRepository(context: Context) : BaseRepository() {
 
     fun getSubjectList() = db.subjectDao().getAll()
 
-    fun getSectionListBySubjectId(subjectId: Int) = db.sectionDao().getAllBySubjectId(subjectId)
+    private fun getSectionListBySubjectId(subjectId: Int) =
+        db.sectionDao().getAllBySubjectId(subjectId)
+
+    fun getSectionDomainListBySubjectId(subjectId: Int) =
+        getSectionListBySubjectId(subjectId)
+            .map { list ->
+                list.map { item ->
+                    val unlockRequired = getEncryptedTasksSuspend(item.id).isNotEmpty()
+                    SectionDbToDomainMapper.map(item).also { it.unlockRequired = unlockRequired }
+                }
+            }
+
+    private suspend fun getEncryptedTasksSuspend(sectionId: Int) =
+        db.taskDao().getAllDecryptedBySectionIdSuspend(sectionId, false)
 
     fun getEncryptedTasks(sectionId: Int) =
         db.taskDao().getAllDecryptedBySectionId(sectionId, false)

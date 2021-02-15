@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -56,7 +57,6 @@ class SectionDetailFragment : Fragment(), MaterialClickListener, TaskClickListen
             } else false
         }
 
-        //TODO hide menu when task list is empty or password already given
         viewModel.getSection(sectionId).observe(viewLifecycleOwner) {
             section = it
             binding.layoutRecview.textView2.text = getString(R.string.section, it.name)
@@ -65,6 +65,21 @@ class SectionDetailFragment : Fragment(), MaterialClickListener, TaskClickListen
 
         viewModel.getSectionDetailList(sectionId).observe(viewLifecycleOwner) {
             adapter.submitList(it)
+        }
+
+        viewModel.isUnlockRequired(sectionId).observe(viewLifecycleOwner) {
+            binding.topAppBar.menu.findItem(R.id.unlock).isVisible = it
+        }
+
+        viewModel.errorDecrypt.observe(viewLifecycleOwner) {
+            it?.let {
+                if (it) Toast.makeText(
+                    requireContext(),
+                    getString(R.string.wrong_code_for, section.name),
+                    Toast.LENGTH_SHORT
+                ).show()
+                viewModel.invalidateError()
+            }
         }
     }
 
