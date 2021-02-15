@@ -56,7 +56,6 @@ class SectionDetailFragment : Fragment(), MaterialClickListener, TaskClickListen
             } else false
         }
 
-        //TODO hide menu when task list is empty or password already given
         viewModel.getSection(sectionId).observe(viewLifecycleOwner) {
             section = it
             binding.layoutRecview.textView2.text = getString(R.string.section, it.name)
@@ -65,6 +64,10 @@ class SectionDetailFragment : Fragment(), MaterialClickListener, TaskClickListen
 
         viewModel.getSectionDetailList(sectionId).observe(viewLifecycleOwner) {
             adapter.submitList(it)
+        }
+
+        viewModel.isUnlockRequired(sectionId).observe(viewLifecycleOwner) {
+            binding.topAppBar.menu.findItem(R.id.unlock).isVisible = it
         }
     }
 
