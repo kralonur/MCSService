@@ -5,17 +5,17 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import com.example.mcsservice.databinding.ItemListBinding
-import com.example.mcsservice.model.database.DbSection
+import com.example.mcsservice.model.DomainSection
 
 class SectionAdapter(private val clickListener: SectionClickListener) :
-    ListAdapter<DbSection, SectionViewHolder>(ListItemCallback()) {
+    ListAdapter<DomainSection, SectionViewHolder>(ListItemCallback()) {
 
-    private class ListItemCallback : DiffUtil.ItemCallback<DbSection>() {
-        override fun areItemsTheSame(oldItem: DbSection, newItem: DbSection): Boolean {
+    private class ListItemCallback : DiffUtil.ItemCallback<DomainSection>() {
+        override fun areItemsTheSame(oldItem: DomainSection, newItem: DomainSection): Boolean {
             return oldItem.id == newItem.id
         }
 
-        override fun areContentsTheSame(oldItem: DbSection, newItem: DbSection): Boolean {
+        override fun areContentsTheSame(oldItem: DomainSection, newItem: DomainSection): Boolean {
             return oldItem == newItem
         }
 
