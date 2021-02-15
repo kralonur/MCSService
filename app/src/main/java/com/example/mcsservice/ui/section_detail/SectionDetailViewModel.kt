@@ -1,9 +1,7 @@
 package com.example.mcsservice.ui.section_detail
 
 import android.app.Application
-import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.asLiveData
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.example.mcsservice.model.database.DbSection
 import com.example.mcsservice.repository.SubjectRepository
 import com.example.mcsservice.ui.section_detail.validator.Validator
@@ -18,6 +16,10 @@ import timber.log.Timber
 
 class SectionDetailViewModel(application: Application) : AndroidViewModel(application) {
     private val repo = SubjectRepository(getApplication<Application>().applicationContext)
+
+    private val _errorDecrypt = MutableLiveData<Boolean?>(null)
+    val errorDecrypt: LiveData<Boolean?>
+        get() = _errorDecrypt
 
     fun getSectionDetailList(sectionId: Int) =
         getSectionDetailListFlow(sectionId)
@@ -61,11 +63,17 @@ class SectionDetailViewModel(application: Application) : AndroidViewModel(applic
                         } else {
                             Timber.e("Fail decrypting: ${dbTask.name} with pass ${section.sectionPass}")
                             updateSectionPass(section, "")
+                            if (_errorDecrypt.value == null || _errorDecrypt.value == false)
+                                _errorDecrypt.postValue(true)
                         }
                     }
                 }
             }
         }
+    }
+
+    fun invalidateError() {
+        _errorDecrypt.postValue(null)
     }
 
     private fun getEncryptedTasks(sectionId: Int) =
